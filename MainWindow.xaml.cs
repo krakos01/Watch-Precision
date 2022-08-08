@@ -24,5 +24,15 @@ namespace Watch_Precision
         {
             InitializeComponent();
         }
+
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            measureInfoTB.Visibility = Visibility.Visible;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            measureInfoTB.Visibility=Visibility.Hidden;
+        }
     }
 }
