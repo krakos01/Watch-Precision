@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Watch_Precision
 {
@@ -23,16 +24,28 @@ namespace Watch_Precision
         public MainWindow()
         {
             InitializeComponent();
+
+            DispatcherTimer timer = new();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
+
+            watchTime.Text = DateTime.Now.ToShortTimeString();
         }
 
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        void timer_Tick(object sender, EventArgs e)
         {
-            measureInfoTB.Visibility = Visibility.Visible;
+            pcTime.Text = DateTime.Now.ToLongTimeString();
         }
 
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        private void timeUpButton_Click(object sender, RoutedEventArgs e)
         {
-            measureInfoTB.Visibility=Visibility.Hidden;
+            watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(1).ToShortTimeString();
+        }
+
+        private void timeDownButton_Click(object sender, RoutedEventArgs e)
+        {
+            watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(-1).ToShortTimeString();
         }
     }
 }

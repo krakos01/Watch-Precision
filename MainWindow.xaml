@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watch_Precision"
         mc:Ignorable="d"
-        Title="WatchPrecision" Height="500" Width="900" Background="AliceBlue">
+        Title="WatchPrecision" Height="500" Width="900" Background="AliceBlue" FontFamily="Calibri" FontSize="15">
     <Grid HorizontalAlignment="Left" Width="900">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -14,16 +14,15 @@
         <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto">
             <WrapPanel>
                 <TextBlock Text="Time: "/>
-                <TextBlock Name="pcTime" Margin="5,0,0,0" Text="00:00:00" FontWeight="Bold" HorizontalAlignment="Right"/>
+                <TextBlock Name="pcTime" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right"/>
             </WrapPanel>
             <WrapPanel>
                 <TextBlock Text="Watch time: "/>
-                <TextBlock Name="watchTime" Margin="5,0,0,0" FontWeight="Bold" Text="{Binding Path=Text, ElementName=pcTime}"/>
-                <Button Name="timeUpButton" Margin="10,0,10,0"/>     <!-- button should look like an arrow UP/DOWN and change only minutes (14:57:03 -> 14:58:03) -->
-                <Button Name="timeDownButton"/>
+                <TextBlock Name="watchTime" Margin="5,0,0,0" FontWeight="Bold" />
+                <Button Name="timeUpButton" Margin="10,-0,10,0" Content="↑" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="timeUpButton_Click"/>
+                <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="timeDownButton_Click" />
             </WrapPanel>
-            <Button Width="100" Margin="0,10,0,5" Content="Measure watch" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave"/>
-            <TextBlock Name="measureInfoTB" TextWrapping="WrapWithOverflow" Text="Click when seconds hand is on :00" Foreground="Blue" FontSize="10" Visibility="Hidden"/>
+            <Button Width="auto" Margin="0,10,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue"/>
         </StackPanel>
     </Grid>
 </Window>
