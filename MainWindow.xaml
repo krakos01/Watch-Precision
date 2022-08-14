@@ -10,6 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto">
             <WrapPanel>
@@ -19,10 +20,25 @@
             <WrapPanel>
                 <TextBlock Text="Watch time: "/>
                 <TextBlock Name="watchTime" Margin="5,0,0,0" FontWeight="Bold" />
-                <Button Name="timeUpButton" Margin="10,-0,10,0" Content="↑" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="timeUpButton_Click"/>
-                <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="timeDownButton_Click" />
+                <Button Name="timeUpButton" Margin="10,-0,10,0" Content="↑" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="TimeUpButton_Click"/>
+                <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="TimeDownButton_Click"/>
             </WrapPanel>
             <Button Width="auto" Margin="0,10,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue"/>
+            <TextBlock Margin="0,40,0,0" Text="Watch:"/>
+            <ListBox Name="watches" /> <!-- I can't work with sqlite. Yet. -->
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Label Margin="0,20,0,0" FontWeight="Bold" Content="Position"/>
+            <ListView Name="lbPositions" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <RadioButton GroupName="rbPosG" Name="rbPos"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                
+            </ListView>
         </StackPanel>
     </Grid>
 </Window>

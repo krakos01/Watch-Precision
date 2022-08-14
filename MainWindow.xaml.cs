@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Data.SQLite;
 
 namespace Watch_Precision
 {
@@ -25,27 +26,36 @@ namespace Watch_Precision
         {
             InitializeComponent();
 
+
+            // ResourcesInitialize();
+
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
+            timer.Tick += Timer_Tick;
             timer.Start();
 
             watchTime.Text = DateTime.Now.ToShortTimeString();
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        void Timer_Tick(object? sender, EventArgs e)
         {
             pcTime.Text = DateTime.Now.ToLongTimeString();
         }
 
-        private void timeUpButton_Click(object sender, RoutedEventArgs e)
+        private void TimeUpButton_Click(object sender, RoutedEventArgs e)
         {
             watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(1).ToShortTimeString();
         }
 
-        private void timeDownButton_Click(object sender, RoutedEventArgs e)
+        private void TimeDownButton_Click(object sender, RoutedEventArgs e)
         {
             watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(-1).ToShortTimeString();
+        }
+
+       private void ResourcesInitialize()
+        {
+            lbPositions.ItemsSource = Watch;
+
         }
     }
 }
