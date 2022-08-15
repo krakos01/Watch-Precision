@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Data.SQLite;
+using static Watch_Precision.Watch;
 
 namespace Watch_Precision
 {
@@ -26,8 +27,7 @@ namespace Watch_Precision
         {
             InitializeComponent();
 
-
-            // ResourcesInitialize();
+            ShowPositions();
 
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -52,9 +52,19 @@ namespace Watch_Precision
             watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(-1).ToShortTimeString();
         }
 
-       private void ResourcesInitialize()
+       
+        private void ShowPositions()
         {
-            lbPositions.ItemsSource = Watch;
+            lbPositions.ItemsSource = Watch.PosList;
+        }
+
+        private void MeasureButton_Click(object sender, RoutedEventArgs e)
+        {
+            TimeSpan difference = DateTime.Parse(watchTime.Text) - DateTime.Now;
+
+            string format = (difference < TimeSpan.Zero ? "\\-" : "\\+") +"hh\\:mm\\:ss\\.ff";
+
+            tbDifference.Text = difference.ToString(format);
 
         }
     }

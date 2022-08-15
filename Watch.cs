@@ -12,7 +12,7 @@ namespace Watch_Precision
     internal class Watch
     {
 
-        List<string> Positions = new()
+        public static List<string> PosList = new()
         {
             "Worn",
             "On the winder",
@@ -25,27 +25,18 @@ namespace Watch_Precision
             "Unspecified"
         };
 
-        string Name { get; set; }
+        string Model { get; set; }
         enum Position
         {
             Worn,
-            [Display(Name = "On the winder")]
             Winder,
-            [Display(Name = "Dial up (horizontal)")]
             DialUp,
-            [Display(Name = "Dial down (horizontal)")]
             DialDown,
-            [Display(Name = "12 up (vertical)")]
             Up12,
-            [Display(Name = "3 up (vertical)")]
             Up3,
-            [Display(Name = "6 up (vertical)")]
             Up6,
-            [Display(Name = "9 up (vertical)")]
             Up9,
             Unspecified
-
-
         }
 
     }
