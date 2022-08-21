@@ -62,10 +62,11 @@ namespace Watch_Precision
         {
             TimeSpan difference = DateTime.Parse(watchTime.Text) - DateTime.Now;
 
-            string format = (difference < TimeSpan.Zero ? "\\-" : "\\+") +"hh\\:mm\\:ss\\.ff";
+            string format = (difference < TimeSpan.Zero ? "\\-" : "\\+") +"mm\\:ss\\.ff";
 
             tbDifference.Text = difference.ToString(format);
 
         }
+
     }
 }

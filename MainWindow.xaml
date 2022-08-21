@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watch_Precision"
         mc:Ignorable="d"
-        Title="WatchPrecision" Height="400" Width="700" Background="AliceBlue" FontFamily="Calibri" FontSize="15">
+        Title="WatchPrecision" Height="400" Width="700" Background="AliceBlue" FontFamily="Calibri" FontSize="14">
     <Grid HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto" >
+        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto">
             <WrapPanel>
                 <TextBlock Text="Time: "/>
                 <TextBlock Name="pcTime" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right"/>

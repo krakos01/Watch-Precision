@@ -25,19 +25,10 @@ namespace Watch_Precision
             "Unspecified"
         };
 
-        string Model { get; set; }
-        enum Position
-        {
-            Worn,
-            Winder,
-            DialUp,
-            DialDown,
-            Up12,
-            Up3,
-            Up6,
-            Up9,
-            Unspecified
-        }
+
+        public int ID { get; set; }
+        public string Model { get; set; }
+        public string Position { get; set; }
 
     }
 }
