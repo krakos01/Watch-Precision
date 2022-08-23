@@ -68,5 +68,10 @@ namespace Watch_Precision
 
         }
 
+        private void AddWatchButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddWatch addWatchWindow = new();
+            addWatchWindow.Show();
+        }
     }
 }

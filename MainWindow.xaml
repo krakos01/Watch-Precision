@@ -7,15 +7,12 @@
         mc:Ignorable="d"
         Title="WatchPrecision" Height="400" Width="700" Background="AliceBlue" FontFamily="Calibri" FontSize="14">
     <Grid HorizontalAlignment="Left">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto">
+        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <WrapPanel>
                 <TextBlock Text="Time: "/>
                 <TextBlock Name="pcTime" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right"/>
@@ -23,22 +20,27 @@
             <WrapPanel>
                 <TextBlock Text="Watch time: "/>
                 <TextBlock Name="watchTime" Margin="5,0,0,0" FontWeight="Bold" />
-                <Button Name="timeUpButton" Margin="10,-0,10,0" Content="↑" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="TimeUpButton_Click"/>
-                <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" FontSize="15" Click="TimeDownButton_Click"/>
+                <Button Name="timeUpButton" Margin="10,0,10,0" Content="↑" Background="AliceBlue" BorderThickness="0" Click="TimeUpButton_Click"/>
+                <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" Click="TimeDownButton_Click"/>
             </WrapPanel>
-            <Button Width="auto" Margin="0,10,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
-            <WrapPanel Margin="0,10,0,0">
+            <WrapPanel Margin="0,-1,0,0">
                 <TextBlock Text="Difference: "/>
                 <TextBlock Name="tbDifference" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right" />
             </WrapPanel>
-            <StackPanel>
-                <TextBlock Margin="0,40,0,0" Text="Watch:" FontWeight="Bold"/>
+            <StackPanel Margin="0,20,0,0">
+                <DockPanel LastChildFill="False">
+                    <TextBlock Text="Watch:" FontWeight="Bold"/>
+                    <Button Name="AddWatchButton" Background="AliceBlue" BorderThickness="0" DockPanel.Dock="Right" Click="AddWatchButton_Click">
+                        <Image Source="plus-512.png" Height="13"/>
+                    </Button>
+                </DockPanel>
                 <ComboBox Name="cbWatches" />
                 <!-- I can't work with sqlite. Yet. -->
                 <TextBlock Margin="0,20,0,0" Text="Position:" FontWeight="Bold"/>
                 <ComboBox Name="lbPositions" />
                 <!-- Make worn as default-->
             </StackPanel>
+            <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
