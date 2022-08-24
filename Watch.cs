@@ -27,8 +27,9 @@ namespace Watch_Precision
 
 
         public int ID { get; set; }
+        public string Brand { get; set; }
         public string Model { get; set; }
-        public string Position { get; set; }
+        // public string Position { get; set; }          Chyba w klasie niepotrzebne, tylko w db
 
     }
 }

@@ -60,11 +60,11 @@ namespace Watch_Precision
 
         private void MeasureButton_Click(object sender, RoutedEventArgs e)
         {
-            TimeSpan difference = DateTime.Parse(watchTime.Text) - DateTime.Now;
+            TimeSpan deviation = DateTime.Parse(watchTime.Text) - DateTime.Now;
 
-            string format = (difference < TimeSpan.Zero ? "\\-" : "\\+") +"mm\\:ss\\.ff";
+            string format = (deviation < TimeSpan.Zero ? "\\-" : "\\+") +"mm\\:ss\\.ff";
 
-            tbDifference.Text = difference.ToString(format);
+            tbDeviation.Text = deviation.ToString(format);
 
         }
 

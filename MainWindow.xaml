@@ -9,10 +9,9 @@
     <Grid HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto" Grid.ColumnSpan="3" Grid.RowSpan="2">
+        <StackPanel HorizontalAlignment="Left" Margin="20,20,0,0" Width="auto">
             <WrapPanel>
                 <TextBlock Text="Time: "/>
                 <TextBlock Name="pcTime" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right"/>
@@ -24,8 +23,8 @@
                 <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" Click="TimeDownButton_Click"/>
             </WrapPanel>
             <WrapPanel Margin="0,-1,0,0">
-                <TextBlock Text="Difference: "/>
-                <TextBlock Name="tbDifference" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right" />
+                <TextBlock Text="Deviation: "/>
+                <TextBlock Name="tbDeviation" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right" />
             </WrapPanel>
             <StackPanel Margin="0,20,0,0">
                 <DockPanel LastChildFill="False">
@@ -41,6 +40,24 @@
                 <!-- Make worn as default-->
             </StackPanel>
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="50,20,0,0">
+            <WrapPanel>
+                <ListView Name="PrevMeasurementsLV" Width="auto" BorderBrush="#FC0000FF">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Age}" />
+                            <GridViewColumn Header="To previous" Width="80" DisplayMemberBinding="{Binding Mail}" />
+                            <GridViewColumn Header="Position" Width="100" DisplayMemberBinding="{Binding Mail}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <!-- Somewhere add this
+                <TextBlock Text="Average: "/>
+                <TextBlock Name="tbAvgDeviation" FontWeight="Bold"/>
+                -->
+            </WrapPanel>
         </StackPanel>
     </Grid>
 </Window>
