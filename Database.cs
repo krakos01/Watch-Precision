@@ -5,9 +5,18 @@ using static Watch_Precision.MainWindow;
 using System.Windows.Documents;
 using System.Windows.Resources;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Watch_Precision
 {
+    public struct Data
+    {
+        public string Dat { get; set; }
+        public double Dev { get; set; }
+        public string Pos { get; set; }
+    }
+
     public class Database
     {
         public SQLiteConnection myConnection;
@@ -16,7 +25,12 @@ namespace Watch_Precision
         {
             myConnection = new SQLiteConnection("Data Source=database.sqlite3");
 
-            if (!File.Exists("./database.sqlite3"))  SQLiteConnection.CreateFile("database.sqlite3");
+            if (!File.Exists("./database.sqlite3"))
+            {
+                SQLiteConnection.CreateFile("database.sqlite3");
+            }
+
+                
         }
 
         public void OpenConnection()
@@ -30,7 +44,8 @@ namespace Watch_Precision
         }
         
 
-        public List<string> ShowAllWatches()
+
+        public List<string> ReadWatchesNames()
         {
             List<string> results = new();
             string query = "SELECT Brand, Model FROM Watches";
@@ -48,6 +63,30 @@ namespace Watch_Precision
             CloseConnection();
 
             return results;
+        }
+
+
+        public List<Data> ReadMeasurements()
+        {
+            
+             List<Data> data = new();
+
+             string query = "SELECT * FROM Watch_times";
+             SQLiteCommand myCommand = new(query, myConnection);
+             OpenConnection();
+             SQLiteDataReader reader = myCommand.ExecuteReader();
+
+             if (reader.HasRows)
+             {
+                 while (reader.Read())
+                 {
+                     data.Add(new Data() { Dat = (string)reader[1], Dev = (double)reader[2], Pos = (string)reader[3] });
+                 }
+             }
+
+             CloseConnection();
+            
+            return data;
         }
 
     }
