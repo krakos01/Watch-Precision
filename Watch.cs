@@ -9,7 +9,7 @@ using System.Xml.Linq;
 namespace Watch_Precision
 {
 
-    internal class Watch
+    public class Watch
     {
 
         public static List<string> PosList = new()
@@ -28,8 +28,10 @@ namespace Watch_Precision
 
         public int ID { get; set; }
         public string Brand { get; set; }
-        public string Model { get; set; }
-        // public string Position { get; set; }          Chyba w klasie niepotrzebne, tylko w db
+        public string? Model { get; set; }
+        public string DateOfCheck { get; set; }
+        public double Deviation  { get; set; }
+        public string Position { get; set; } 
 
     }
 }

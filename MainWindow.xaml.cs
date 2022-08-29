@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Threading;
 using static Watch_Precision.Watch;
 using static Watch_Precision.Database;
+using System.Windows.Documents;
+using System.Collections.Generic;
 
 namespace Watch_Precision
 {
@@ -17,7 +19,8 @@ namespace Watch_Precision
             Database dbObject = new Database();
 
             ShowPositions();
-            cbWatches.ItemsSource = dbObject.ShowAllWatches();
+            cbWatches.ItemsSource = dbObject.ReadWatchesNames();
+            PrevMeasurementsLV.ItemsSource = dbObject.ReadMeasurements();
 
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -64,7 +67,7 @@ namespace Watch_Precision
             addWatchWindow.Show();
         }
 
-
+        
 
 
     }
