@@ -33,11 +33,9 @@
                         <Image Source="plus-512.png" Height="13"/>
                     </Button>
                 </DockPanel>
-                <ComboBox Name="cbWatches" />
-                <!-- I can't work with sqlite. Yet. -->
+                <ComboBox Name="cbWatches" SelectionChanged="cbWatches_SelectionChanged"/>
                 <TextBlock Margin="0,20,0,0" Text="Position:" FontWeight="Bold"/>
-                <ComboBox Name="lbPositions" />
-                <!-- Make worn as default-->
+                <ComboBox Name="lbPositions" SelectionChanged="lbPositions_SelectionChanged" />
             </StackPanel>
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
@@ -46,10 +44,9 @@
                 <ListView Name="PrevMeasurementsLV" Width="auto" BorderBrush="#FC0000FF">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Age}" />
-                            <GridViewColumn Header="To previous" Width="80" DisplayMemberBinding="{Binding Mail}" />
-                            <GridViewColumn Header="Position" Width="100" DisplayMemberBinding="{Binding Mail}" />
+                            <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Dat}" />
+                            <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Dev}" />
+                            <GridViewColumn Header="Position" Width="80" DisplayMemberBinding="{Binding Pos}" />
                         </GridView>
                     </ListView.View>
                 </ListView>

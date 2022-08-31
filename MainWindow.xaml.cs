@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Threading;
 using static Watch_Precision.Watch;
 using static Watch_Precision.Database;
+using System.Text.RegularExpressions;
 
 namespace Watch_Precision
 {
@@ -11,13 +12,27 @@ namespace Watch_Precision
     /// </summary>
     public partial class MainWindow : Window
     {
+        // ADD WATCH
+
+        string brand = "";
+        string model = "";
+        DateTime dt = DateTime.Now;
+        TimeSpan dev;
+        string position = "";
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();
             Database dbObject = new Database();
+            Watch watch_none = new();
 
             ShowPositions();
-            cbWatches.ItemsSource = dbObject.ShowAllWatches();
+            cbWatches.ItemsSource = watch_none.ReadWatchesNames();
+            // Shows all measurements, but default should be last watch? Or maybe create ComboBox allowing choosing which watch stats wanna see (before selecting nothing will be seen).
+            PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements();
 
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -51,10 +66,13 @@ namespace Watch_Precision
         private void MeasureButton_Click(object sender, RoutedEventArgs e)
         {
             TimeSpan deviation = DateTime.Parse(watchTime.Text) - DateTime.Now;
-
             string format = (deviation < TimeSpan.Zero ? "\\-" : "\\+") +"mm\\:ss\\.ff";
-
             tbDeviation.Text = deviation.ToString(format);
+
+            if (cbWatches != null && lbPositions != null)
+            {
+                Watch watch = new(brand, model, dt, deviation, position);
+            }
 
         }
 
@@ -64,8 +82,14 @@ namespace Watch_Precision
             addWatchWindow.Show();
         }
 
+        private void cbWatches_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            brand = cbWatches.SelectedItem.ToString();
+        }
 
-
-
+        private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            position = lbPositions.SelectedItem.ToString();
+        }
     }
 }
