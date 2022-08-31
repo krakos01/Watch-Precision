@@ -41,14 +41,14 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="50,20,0,0">
             <WrapPanel>
-                <ListView Name="PrevMeasurementsLV" Width="auto" BorderBrush="#FC0000FF">
+                <ListView Name="PrevMeasurementsLV" Width="auto" BorderBrush="#FC0000FF" >
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Date" Width="80" DisplayMemberBinding="{Binding Dat}" />
+                            <GridViewColumn Header="Date" Width="auto" DisplayMemberBinding="{Binding Dat}" />
                             <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Dev}" />
-                            <GridViewColumn Header="Position" Width="80" DisplayMemberBinding="{Binding Pos}" />
+                            <GridViewColumn Header="Position" Width="100" DisplayMemberBinding="{Binding Pos}" /> 
                         </GridView>
-                    </ListView.View>
+                    </ListView.View>           
                 </ListView>
                 <!-- Somewhere add this
                 <TextBlock Text="Average: "/>

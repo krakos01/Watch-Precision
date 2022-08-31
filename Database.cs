@@ -33,6 +33,9 @@ namespace Watch_Precision
                 
         }
 
+                
+        }
+
         public void OpenConnection()
         {
             if (myConnection.State == System.Data.ConnectionState.Closed) myConnection.Open();
@@ -43,6 +46,30 @@ namespace Watch_Precision
             if (myConnection.State == System.Data.ConnectionState.Open) myConnection.Close();
         }
        
+
+
+        public List<Data> ReadMeasurements()
+        {
+            
+             List<Data> data = new();
+
+             string query = "SELECT * FROM Watch_times";
+             SQLiteCommand myCommand = new(query, myConnection);
+             OpenConnection();
+             SQLiteDataReader reader = myCommand.ExecuteReader();
+
+             if (reader.HasRows)
+             {
+                 while (reader.Read())
+                 {
+                     data.Add(new Data() { Dat = (string)reader[1], Dev = (double)reader[2], Pos = (string)reader[3] });
+                 }
+             }
+
+             CloseConnection();
+            
+            return data;
+        }
 
     }
 }

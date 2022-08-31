@@ -12,22 +12,10 @@ namespace Watch_Precision
     /// </summary>
     public partial class MainWindow : Window
     {
-        // ADD WATCH
-
-        string brand = "";
-        string model = "";
-        DateTime dt = DateTime.Now;
-        TimeSpan dev;
-        string position = "";
-
-
-
-
         public MainWindow()
         {
             InitializeComponent();
             Database dbObject = new Database();
-            Watch watch_none = new();
 
             ShowPositions();
             cbWatches.ItemsSource = watch_none.ReadWatchesNames();

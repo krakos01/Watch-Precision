@@ -12,7 +12,7 @@ using static Watch_Precision.Database;
 namespace Watch_Precision
 {
 
-    internal class Watch
+    public class Watch
     {
         Database dbObject = new Database();
 
