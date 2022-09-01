@@ -12,6 +12,13 @@ namespace Watch_Precision
     /// </summary>
     public partial class MainWindow : Window
     {
+        string brand;
+        string model = "";
+        DateTime dt;
+        string position;
+
+        Watch watch_none = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -20,7 +27,7 @@ namespace Watch_Precision
             ShowPositions();
             cbWatches.ItemsSource = watch_none.ReadWatchesNames();
             // Shows all measurements, but default should be last watch? Or maybe create ComboBox allowing choosing which watch stats wanna see (before selecting nothing will be seen).
-            PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements();
+            // PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements();
 
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -73,6 +80,8 @@ namespace Watch_Precision
         private void cbWatches_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             brand = cbWatches.SelectedItem.ToString();
+            brand = brand.Substring(0, brand.IndexOf(' '));
+            PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements(brand);
         }
 
         private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

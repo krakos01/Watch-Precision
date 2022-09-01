@@ -93,5 +93,28 @@ namespace Watch_Precision
             return results;
         }
 
+
+        public List<Data> ReadMeasurements(string brand)
+        {
+
+            List<Data> results = new();
+
+            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}')", brand);
+            SQLiteCommand myCommand = new(query, dbObject.myConnection);
+            dbObject.OpenConnection();
+            SQLiteDataReader reader = myCommand.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    results.Add(new Data() { Dat = (string)reader[1], Dev = (double)reader[2], Pos = (string)reader[3] });
+                }
+            }
+            dbObject.CloseConnection();
+
+
+            return results;
+        }
     }
 }
