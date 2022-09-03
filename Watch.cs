@@ -69,7 +69,6 @@ namespace Watch_Precision
             return results;
         }
 
-
         public List<Data> ReadMeasurements()
         {
 
@@ -93,7 +92,6 @@ namespace Watch_Precision
             return results;
         }
 
-
         public List<Data> ReadMeasurements(string brand)
         {
 
@@ -115,6 +113,24 @@ namespace Watch_Precision
 
 
             return results;
+        }
+
+        public void InsertWatch(string name)
+        {
+            string query = String.Format("INSERT INTO Watches ('Brand', 'Model') VALUES ('{0}', '')", name);
+            SQLiteCommand myCommand = new(query, dbObject.myConnection);
+            dbObject.OpenConnection();
+            myCommand.ExecuteNonQuery();
+            dbObject.CloseConnection();
+        }
+
+        public void DeleteWatch(string name)
+        {
+            string query = String.Format("DELETE FROM Watches WHERE Brand='{0}'", name);
+            SQLiteCommand myCommand = new(query, dbObject.myConnection);
+            dbObject.OpenConnection();
+            myCommand.ExecuteNonQuery();
+            dbObject.CloseConnection();
         }
     }
 }
