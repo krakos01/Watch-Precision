@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Xml.Linq;
 using static Watch_Precision.Database;
 
@@ -31,21 +32,16 @@ namespace Watch_Precision
 
         public Watch() { }
 
-        public Watch(string brand, string model, DateTime dateOfCheck, TimeSpan deviation, string position)
+        public Watch(string brand, string deviation, string position)
         {
             Brand = brand;
-            Model = model;
-            DateOfCheck = dateOfCheck;
             Deviation = deviation;
             Position = position;
         }
 
         public string Brand { get; set; }
-        public string Model { get; set; }
-        public DateTime DateOfCheck { get; set; }
-        public TimeSpan Deviation { get; set; }
+        public string Deviation { get; set; }
         public string Position { get; set; }
-        
 
 
 
@@ -83,7 +79,7 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    results.Add(new Data() { Dat = (string)reader[1], Dev = (double)reader[2], Pos = (string)reader[3] });
+                    results.Add(new Data() { Dat = (string)reader[1], Dev = (string)reader[2], Pos = (string)reader[3] });
                 }
             }
             dbObject.CloseConnection();
@@ -97,7 +93,7 @@ namespace Watch_Precision
 
             List<Data> results = new();
 
-            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}')", brand);
+            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}') ORDER BY Date DESC", brand);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
             dbObject.OpenConnection();
             SQLiteDataReader reader = myCommand.ExecuteReader();
@@ -106,7 +102,7 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    results.Add(new Data() { Dat = (string)reader[1], Dev = (double)reader[2], Pos = (string)reader[3] });
+                    results.Add(new Data() { Dat = (string)reader[1], Dev = (string)reader[2], Pos = (string)reader[3] });
                 }
             }
             dbObject.CloseConnection();
@@ -131,6 +127,17 @@ namespace Watch_Precision
             dbObject.OpenConnection();
             myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
+        }
+
+        public void InsertMeasurement()
+        {            
+            string query = String.Format("INSERT INTO Watch_times VALUES ((SELECT ID FROM Watches WHERE Brand = '{0}'), datetime('now'), '{1}', '{2}')", Brand, Deviation, Position);
+            SQLiteCommand command = new(query, dbObject.myConnection);
+
+            dbObject.OpenConnection();
+            command.ExecuteNonQuery();
+            dbObject.CloseConnection();
+            
         }
     }
 }

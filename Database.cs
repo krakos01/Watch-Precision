@@ -13,7 +13,7 @@ namespace Watch_Precision
     public struct Data
     {
         public string Dat { get; set; }
-        public double Dev { get; set; }
+        public string Dev { get; set; }
         public string Pos { get; set; }
     }
 
@@ -28,9 +28,7 @@ namespace Watch_Precision
             if (!File.Exists("./database.sqlite3"))
             {
                 SQLiteConnection.CreateFile("database.sqlite3");
-            }
-
-                
+            }                
         }
 
         public void OpenConnection()

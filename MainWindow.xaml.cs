@@ -13,11 +13,8 @@ namespace Watch_Precision
     public partial class MainWindow : Window
     {
         string brand;
-        string model = "";
-        DateTime dt;
         string position;
-
-        Watch watch_none = new();
+        readonly Watch _ = new();
 
         public MainWindow()
         {
@@ -25,9 +22,7 @@ namespace Watch_Precision
             Database dbObject = new Database();
 
             ShowPositions();
-            cbWatches.ItemsSource = watch_none.ReadWatchesNames();
-            // Shows all measurements, but default should be last watch? Or maybe create ComboBox allowing choosing which watch stats wanna see (before selecting nothing will be seen).
-            // PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements();
+            cbWatches.ItemsSource = _.ReadWatchesNames();
 
             DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -52,7 +47,6 @@ namespace Watch_Precision
             watchTime.Text = DateTime.Parse(watchTime.Text).AddMinutes(-1).ToShortTimeString();
         }
 
-       
         private void ShowPositions()
         {
             lbPositions.ItemsSource = Watch.PosList;
@@ -64,9 +58,11 @@ namespace Watch_Precision
             string format = (deviation < TimeSpan.Zero ? "\\-" : "\\+") +"mm\\:ss\\.ff";
             tbDeviation.Text = deviation.ToString(format);
 
-            if (cbWatches != null && lbPositions != null)
+            if (cbWatches.SelectedItem != null && lbPositions.SelectedItem != null)
             {
-                Watch watch = new(brand, model, dt, deviation, position);
+               Watch nw = new(brand, deviation.ToString(format), position);
+                nw.InsertMeasurement();
+                PrevMeasurementsLV.ItemsSource = _.ReadMeasurements(brand);
             }
 
         }
@@ -81,7 +77,7 @@ namespace Watch_Precision
         {
             brand = cbWatches.SelectedItem.ToString();
             brand = brand.Substring(0, brand.IndexOf(' '));
-            PrevMeasurementsLV.ItemsSource = watch_none.ReadMeasurements(brand);
+            PrevMeasurementsLV.ItemsSource = _.ReadMeasurements(brand);
         }
 
         private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

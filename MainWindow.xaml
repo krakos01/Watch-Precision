@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watch_Precision"
         mc:Ignorable="d"
-        Title="WatchPrecision" Height="400" Width="700" Background="AliceBlue" FontFamily="Calibri" FontSize="14">
+        Title="WatchPrecision" Height="320" Width="650" Background="AliceBlue" FontFamily="Calibri" FontSize="14">
     <Grid HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -39,21 +39,17 @@
             </StackPanel>
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="50,20,0,0">
+        <StackPanel Grid.Column="1" Margin="40,20,-10,0" VerticalAlignment="Top">
             <WrapPanel>
-                <ListView Name="PrevMeasurementsLV" Width="auto" BorderBrush="#FC0000FF" >
+                <ListView Name="PrevMeasurementsLV" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Date" Width="auto" DisplayMemberBinding="{Binding Dat}" />
+                            <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding Dat}" />
                             <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Dev}" />
-                            <GridViewColumn Header="Position" Width="100" DisplayMemberBinding="{Binding Pos}" /> 
+                            <GridViewColumn Header="Position" Width="150" DisplayMemberBinding="{Binding Pos}"/>
                         </GridView>
-                    </ListView.View>           
+                    </ListView.View>
                 </ListView>
-                <!-- Somewhere add this
-                <TextBlock Text="Average: "/>
-                <TextBlock Name="tbAvgDeviation" FontWeight="Bold"/>
-                -->
             </WrapPanel>
         </StackPanel>
     </Grid>
