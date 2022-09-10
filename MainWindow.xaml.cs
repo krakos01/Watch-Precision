@@ -4,6 +4,7 @@ using System.Windows.Threading;
 using static Watch_Precision.Watch;
 using static Watch_Precision.Database;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace Watch_Precision
 {
@@ -84,5 +85,6 @@ namespace Watch_Precision
         {
             position = lbPositions.SelectedItem.ToString();
         }
+
     }
 }

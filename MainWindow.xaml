@@ -40,17 +40,7 @@
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="40,20,-10,0" VerticalAlignment="Top">
-            <WrapPanel>
-                <ListView Name="PrevMeasurementsLV" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" HorizontalAlignment="Left" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Date" Width="150" DisplayMemberBinding="{Binding Dat}" />
-                            <GridViewColumn Header="Deviation" Width="80" DisplayMemberBinding="{Binding Dev}" />
-                            <GridViewColumn Header="Position" Width="150" DisplayMemberBinding="{Binding Pos}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </WrapPanel>
+            <DataGrid Name="PrevMeasurementsLV" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" RowBackground="AliceBlue" Background="AliceBlue" AutoGenerateColumns="True" IsReadOnly="True" />
         </StackPanel>
     </Grid>
 </Window>

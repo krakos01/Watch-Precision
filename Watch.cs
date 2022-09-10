@@ -137,7 +137,17 @@ namespace Watch_Precision
             dbObject.OpenConnection();
             command.ExecuteNonQuery();
             dbObject.CloseConnection();
-            
+
+        }
+
+        public void DeleteMeasurement(string date, string deviation)
+        {
+            string query = String.Format("DELETE FROM Watch_times WHERE Date='{0}' AND Deviation='{1}'", date, deviation);
+            SQLiteCommand command = new(query, dbObject.myConnection);
+
+            dbObject.OpenConnection();
+            command.ExecuteNonQuery();
+            dbObject.CloseConnection();
         }
     }
 }
