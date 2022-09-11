@@ -40,7 +40,13 @@
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="40,20,-10,0" VerticalAlignment="Top">
-            <DataGrid Name="PrevMeasurementsLV" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" RowBackground="AliceBlue" Background="AliceBlue" AutoGenerateColumns="True" IsReadOnly="True" />
+            <DataGrid Name="PrevMeasurementsDG" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" RowBackground="AliceBlue" Background="AliceBlue" IsReadOnly="True" AutoGenerateColumns="False" MouseRightButtonDown="PrevMeasurementsLV_MouseRightButtonDown">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Date" Width="140" Binding="{Binding Date}"/>
+                    <DataGridTextColumn Header="Deviation" Width="80" Binding="{Binding Deviation}"/>
+                    <DataGridTextColumn Header="Position" Width="140" Binding="{Binding Position}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </Window>

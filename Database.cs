@@ -10,11 +10,11 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Watch_Precision
 {
-    public struct Data
+    public class Data
     {
-        public string Dat { get; set; }
-        public string Dev { get; set; }
-        public string Pos { get; set; }
+        public string Date { get; set; }
+        public string Deviation { get; set; }
+        public string Position { get; set; }
     }
 
     public class Database

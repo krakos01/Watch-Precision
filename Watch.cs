@@ -79,7 +79,7 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    results.Add(new Data() { Dat = (string)reader[1], Dev = (string)reader[2], Pos = (string)reader[3] });
+                    results.Add(new Data() { Date = (string)reader[1], Deviation = (string)reader[2], Position = (string)reader[3] });
                 }
             }
             dbObject.CloseConnection();
@@ -102,7 +102,7 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    results.Add(new Data() { Dat = (string)reader[1], Dev = (string)reader[2], Pos = (string)reader[3] });
+                    results.Add(new Data() { Date = (string)reader[1], Deviation = (string)reader[2], Position = (string)reader[3] });
                 }
             }
             dbObject.CloseConnection();

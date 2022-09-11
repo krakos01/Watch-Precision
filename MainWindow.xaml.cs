@@ -5,6 +5,7 @@ using static Watch_Precision.Watch;
 using static Watch_Precision.Database;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Data;
 
 namespace Watch_Precision
 {
@@ -63,9 +64,8 @@ namespace Watch_Precision
             {
                Watch nw = new(brand, deviation.ToString(format), position);
                 nw.InsertMeasurement();
-                PrevMeasurementsLV.ItemsSource = _.ReadMeasurements(brand);
+                PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
             }
-
         }
 
         private void AddWatchButton_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace Watch_Precision
         {
             brand = cbWatches.SelectedItem.ToString();
             brand = brand.Substring(0, brand.IndexOf(' '));
-            PrevMeasurementsLV.ItemsSource = _.ReadMeasurements(brand);
+            PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
         }
 
         private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -86,5 +86,18 @@ namespace Watch_Precision
             position = lbPositions.SelectedItem.ToString();
         }
 
+        private void PrevMeasurementsLV_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var item = PrevMeasurementsDG.SelectedItem;
+            
+            if (item != null)
+            {
+                string date = (item as Data).Date.ToString();
+                string dev = (item as Data).Deviation.ToString();
+                _.DeleteMeasurement(date,dev);
+            }
+
+            PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
+        }
     }
 }
