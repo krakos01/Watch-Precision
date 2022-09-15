@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Watch_Precision"
         mc:Ignorable="d"
-        Title="WatchPrecision" Height="320" Width="650" Background="AliceBlue" FontFamily="Calibri" FontSize="14">
+        Title="WatchPrecision" Height="350" Width="730" Background="AliceBlue" FontFamily="Calibri" FontSize="16" >
     <Grid HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -23,7 +23,7 @@
                 <Button Name="timeDownButton" Content="↓" Background="AliceBlue" BorderThickness="0" Click="TimeDownButton_Click"/>
             </WrapPanel>
             <WrapPanel Margin="0,-1,0,0">
-                <TextBlock Text="Deviation: "/>
+                <TextBlock Text="Avg Deviation: "/>
                 <TextBlock Name="tbDeviation" Margin="5,0,0,0" FontWeight="Bold" HorizontalAlignment="Right" />
             </WrapPanel>
             <StackPanel Margin="0,20,0,0">
@@ -39,13 +39,18 @@
             </StackPanel>
             <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="Blue" Background="AliceBlue" Click="MeasureButton_Click"/>
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="40,20,-10,0" VerticalAlignment="Top">
-            <DataGrid Name="PrevMeasurementsDG" Width="auto" MaxHeight="250" BorderBrush="#FC0000FF" RowBackground="AliceBlue" Background="AliceBlue" IsReadOnly="True" AutoGenerateColumns="False" MouseRightButtonDown="PrevMeasurementsLV_MouseRightButtonDown">
+        <StackPanel Grid.Column="1" Margin="40,20,-20,0" VerticalAlignment="Top">
+            <DataGrid Name="PrevMeasurementsDG" Width="auto" MaxHeight="265" BorderBrush="#FC0000FF" RowBackground="AliceBlue" Background="AliceBlue" IsReadOnly="True" AutoGenerateColumns="False" RenderTransformOrigin="0.5,0.5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Date" Width="140" Binding="{Binding Date}"/>
-                    <DataGridTextColumn Header="Deviation" Width="80" Binding="{Binding Deviation}"/>
-                    <DataGridTextColumn Header="Position" Width="140" Binding="{Binding Position}"/>
+                    <DataGridTextColumn Header="Date" Width="160" Binding="{Binding Date}"/>
+                    <DataGridTextColumn Header="Deviation" Width="100" Binding="{Binding Deviation}" />
+                    <DataGridTextColumn Header="Position" Width="160" Binding="{Binding Position}"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete" Click="MenuItem_Click" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
         </StackPanel>
     </Grid>

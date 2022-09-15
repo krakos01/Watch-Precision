@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Data.SQLite;
+using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 using static Watch_Precision.Database;
+using System.Windows.Threading;
+using System.Text.RegularExpressions;
 
 namespace Watch_Precision
 {
@@ -42,7 +45,6 @@ namespace Watch_Precision
         public string Brand { get; set; }
         public string Deviation { get; set; }
         public string Position { get; set; }
-
 
 
         public List<string> ReadWatchesNames()
@@ -102,11 +104,21 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    results.Add(new Data() { Date = (string)reader[1], Deviation = (string)reader[2], Position = (string)reader[3] });
+                    // Next line transforms "reader[2]" - object into string, then parses this string into TimeSpan,
+                    // Than in if-else statement I again transform this TimeSpan into formatted string, because I don't want to have hours and six digits of milliseconds.
+
+                    TimeSpan tsDeviation = TimeSpan.Parse(reader[2].ToString());
+                    string formattedTimeSpan;
+
+                    if (tsDeviation > TimeSpan.FromMilliseconds(0)) {
+                        formattedTimeSpan = tsDeviation.ToString(@"mm\:ss\.ff"); }
+                    else formattedTimeSpan = '-' + tsDeviation.ToString(@"mm\:ss\.ff");
+
+
+                    results.Add(new Data() { Date = (string)reader[1], Deviation = formattedTimeSpan, Position = (string)reader[3] });
                 }
             }
             dbObject.CloseConnection();
-
 
             return results;
         }
