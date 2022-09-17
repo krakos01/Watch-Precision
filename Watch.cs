@@ -50,7 +50,7 @@ namespace Watch_Precision
         public List<string> ReadWatchesNames()
         {
             List<string> results = new();
-            string query = "SELECT Brand, Model FROM Watches";
+            string query = "SELECT Brand FROM Watches";
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
             dbObject.OpenConnection();
             SQLiteDataReader reader = myCommand.ExecuteReader();
@@ -58,7 +58,7 @@ namespace Watch_Precision
             {
                 while (reader.Read())
                 {
-                    string temp = reader[0].ToString() + " " + reader[1].ToString();
+                    string temp = reader[0].ToString();
                     results.Add(temp);
                 }
             }
@@ -67,13 +67,13 @@ namespace Watch_Precision
             return results;
         }
 
-        public List<Data> ReadMeasurements()
+        public List<Data> ReadMeasurements(string brand)
         {
-
             List<Data> results = new();
 
-            string query = "SELECT * FROM Watch_times";
+            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}') ORDER BY Date DESC", brand);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
+
             dbObject.OpenConnection();
             SQLiteDataReader reader = myCommand.ExecuteReader();
 
@@ -86,47 +86,14 @@ namespace Watch_Precision
             }
             dbObject.CloseConnection();
 
-
-            return results;
-        }
-
-        public List<Data> ReadMeasurements(string brand)
-        {
-
-            List<Data> results = new();
-
-            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}') ORDER BY Date DESC", brand);
-            SQLiteCommand myCommand = new(query, dbObject.myConnection);
-            dbObject.OpenConnection();
-            SQLiteDataReader reader = myCommand.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    // Next line transforms "reader[2]" - object into string, then parses this string into TimeSpan,
-                    // Than in if-else statement I again transform this TimeSpan into formatted string, because I don't want to have hours and six digits of milliseconds.
-
-                    TimeSpan tsDeviation = TimeSpan.Parse(reader[2].ToString());
-                    string formattedTimeSpan;
-
-                    if (tsDeviation > TimeSpan.FromMilliseconds(0)) {
-                        formattedTimeSpan = tsDeviation.ToString(@"mm\:ss\.ff"); }
-                    else formattedTimeSpan = '-' + tsDeviation.ToString(@"mm\:ss\.ff");
-
-
-                    results.Add(new Data() { Date = (string)reader[1], Deviation = formattedTimeSpan, Position = (string)reader[3] });
-                }
-            }
-            dbObject.CloseConnection();
-
             return results;
         }
 
         public void InsertWatch(string name)
         {
-            string query = String.Format("INSERT INTO Watches ('Brand', 'Model') VALUES ('{0}', '')", name);
+            string query = String.Format("INSERT INTO Watches ('Brand') VALUES ('{0}')", name);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
+
             dbObject.OpenConnection();
             myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
@@ -136,6 +103,7 @@ namespace Watch_Precision
         {
             string query = String.Format("DELETE FROM Watches WHERE Brand='{0}'", name);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
+
             dbObject.OpenConnection();
             myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
@@ -144,21 +112,21 @@ namespace Watch_Precision
         public void InsertMeasurement()
         {            
             string query = String.Format("INSERT INTO Watch_times VALUES ((SELECT ID FROM Watches WHERE Brand = '{0}'), datetime('now'), '{1}', '{2}')", Brand, Deviation, Position);
-            SQLiteCommand command = new(query, dbObject.myConnection);
+            SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
-            command.ExecuteNonQuery();
+            myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
 
         }
 
-        public void DeleteMeasurement(string date, string deviation)
+        public void DeleteMeasurement(string date)
         {
-            string query = String.Format("DELETE FROM Watch_times WHERE Date='{0}' AND Deviation='{1}'", date, deviation);
-            SQLiteCommand command = new(query, dbObject.myConnection);
+            string query = String.Format("DELETE FROM Watch_times WHERE Date='{0}'", date);
+            SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
-            command.ExecuteNonQuery();
+            myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
         }
     }

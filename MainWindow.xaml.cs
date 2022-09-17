@@ -79,10 +79,24 @@ namespace Watch_Precision
         private void cbWatches_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             brand = cbWatches.SelectedItem.ToString();
-            brand = brand.Substring(0, brand.IndexOf(' '));
-            PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
 
-            GetAvg();
+            if (brand != null)
+            {
+                System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
+                foreach (var item in list)
+                {
+                    TimeSpan timeSpan = TimeSpan.Parse(item.Deviation);
+                    if (timeSpan > TimeSpan.FromMilliseconds(0))
+                    {
+                        item.Deviation = timeSpan.ToString(@"mm\:ss\.ff");
+                    }
+                    else item.Deviation = '-' + timeSpan.ToString(@"mm\:ss\.ff");
+                }
+
+                PrevMeasurementsDG.ItemsSource = list;
+
+                GetAvg();
+            }
         }
 
         private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -97,8 +111,7 @@ namespace Watch_Precision
             if (item != null)
             {
                 string date = (item as Data).Date.ToString();
-                string dev = (item as Data).Deviation.ToString();
-                _.DeleteMeasurement(date, dev);
+                _.DeleteMeasurement(date);
 
                 PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
                 GetAvg();
@@ -107,7 +120,7 @@ namespace Watch_Precision
 
         private void GetAvg()
         {
-            var item = _.ReadMeasurements();
+            var item = _.ReadMeasurements(brand);
         
             var deviationsList = item
                 .Select(x => x.Deviation)
@@ -117,6 +130,8 @@ namespace Watch_Precision
                 .Select(TimeSpan.Parse)
                 .Average(x => x.TotalMilliseconds);
 
+
+            // Next lines formats avgTime
             var avgTime = TimeSpan.FromMilliseconds(average);
 
             if (avgTime > TimeSpan.FromMilliseconds(0)) {
