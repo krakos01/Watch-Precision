@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
-using System.Data.SQLite;
-using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Xml.Linq;
-using System.Windows.Threading;
-using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Watch_Precision.Models
@@ -22,8 +10,7 @@ namespace Watch_Precision.Models
 
         [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; } = null!;
-        public string? AdditionalInformaction { get; set; }
-
+        public string? AdditionalInformation { get; set; }
         public ICollection<Measurement> Measurements { get; set; } = null!;
 
 

@@ -49,7 +49,7 @@ namespace Watch_Precision.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AdditionalInformaction")
+                    b.Property<string>("AdditionalInformation")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

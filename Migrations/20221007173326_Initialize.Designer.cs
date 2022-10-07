@@ -11,7 +11,7 @@ using Watch_Precision.Data;
 namespace Watch_Precision.Migrations
 {
     [DbContext(typeof(WatchPrecisionContext))]
-    [Migration("20221007130011_Initialize")]
+    [Migration("20221007173326_Initialize")]
     partial class Initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace Watch_Precision.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AdditionalInformaction")
+                    b.Property<string>("AdditionalInformation")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")

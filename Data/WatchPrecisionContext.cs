@@ -20,7 +20,7 @@ namespace Watch_Precision.Data
             // For some reason this doesn't work.
             // optionsBuilder.UseSqlite(ConfigurationManager.ConnectionStrings["WatchDBConnection"].ConnectionString);
 
-            optionsBuilder.UseSqlite("Data Source=.\\watch.db;");
+             optionsBuilder.UseSqlite("Data Source=.\\watch.db;");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Watch_Precision.Migrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    AdditionalInformaction = table.Column<string>(type: "TEXT", nullable: true)
+                    AdditionalInformation = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
