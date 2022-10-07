@@ -9,15 +9,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
-using static Watch_Precision.Database;
 using System.Windows.Threading;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Watch_Precision
+namespace Watch_Precision.Models
 {
 
     public class Watch
     {
+        public int ID { get; set; }
+
+        [Column(TypeName = "nvarchar(100)")]
+        public string Name { get; set; } = null!;
+        public string? AdditionalInformaction { get; set; }
+
+        public ICollection<Measurement> Measurements { get; set; } = null!;
+
+
+
+
+        /*  Before EF (db creation, list of postions, CRUD operations)
+         
+         
         Database dbObject = new Database();
 
         public static List<string> PosList = new()
@@ -33,6 +47,9 @@ namespace Watch_Precision
             "Unspecified"
         };
 
+        
+
+          
         public Watch() { }
 
         public Watch(string brand, string deviation, string position)
@@ -71,7 +88,7 @@ namespace Watch_Precision
         {
             List<Data> results = new();
 
-            string query = String.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}') ORDER BY Date DESC", brand);
+            string query = string.Format("SELECT * FROM Watch_times WHERE WatchID IN (SELECT ID FROM Watches WHERE Brand = '{0}') ORDER BY Date DESC", brand);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
@@ -91,7 +108,7 @@ namespace Watch_Precision
 
         public void InsertWatch(string name)
         {
-            string query = String.Format("INSERT INTO Watches ('Brand') VALUES ('{0}')", name);
+            string query = string.Format("INSERT INTO Watches ('Brand') VALUES ('{0}')", name);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
@@ -101,7 +118,7 @@ namespace Watch_Precision
 
         public void DeleteWatch(string name)
         {
-            string query = String.Format("DELETE FROM Watches WHERE Brand='{0}'", name);
+            string query = string.Format("DELETE FROM Watches WHERE Brand='{0}'", name);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
@@ -110,8 +127,8 @@ namespace Watch_Precision
         }
 
         public void InsertMeasurement()
-        {            
-            string query = String.Format("INSERT INTO Watch_times VALUES ((SELECT ID FROM Watches WHERE Brand = '{0}'), datetime('now'), '{1}', '{2}')", Brand, Deviation, Position);
+        {
+            string query = string.Format("INSERT INTO Watch_times VALUES ((SELECT ID FROM Watches WHERE Brand = '{0}'), datetime('now'), '{1}', '{2}')", Brand, Deviation, Position);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
@@ -122,12 +139,14 @@ namespace Watch_Precision
 
         public void DeleteMeasurement(string date)
         {
-            string query = String.Format("DELETE FROM Watch_times WHERE Date='{0}'", date);
+            string query = string.Format("DELETE FROM Watch_times WHERE Date='{0}'", date);
             SQLiteCommand myCommand = new(query, dbObject.myConnection);
 
             dbObject.OpenConnection();
             myCommand.ExecuteNonQuery();
             dbObject.CloseConnection();
         }
+
+        */
     }
 }

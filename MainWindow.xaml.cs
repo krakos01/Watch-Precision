@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using static Watch_Precision.Watch;
-using static Watch_Precision.Database;
+using static Watch_Precision.Models.Watch;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Data;
 using System.Linq;
+using System.Windows.Input;
+using Watch_Precision.Models;
+using Watch_Precision.Data;
+using Microsoft.Extensions.Options;
+using System.Configuration;
 
 namespace Watch_Precision
 {
@@ -15,14 +19,12 @@ namespace Watch_Precision
     /// </summary>
     public partial class MainWindow : Window
     {
-        string brand;
-        string position;
         readonly Watch _ = new();
 
         public MainWindow()
         {
             InitializeComponent();
-            Database dbObject = new Database();
+            /*Database dbObject = new Database();
 
             ShowPositions();
             cbWatches.ItemsSource = _.ReadWatchesNames();
@@ -33,8 +35,10 @@ namespace Watch_Precision
             timer.Start();
 
             watchTime.Text = DateTime.Now.ToShortTimeString();
+            */
         }
 
+        /*
         void Timer_Tick(object? sender, EventArgs e)
         {
             pcTime.Text = DateTime.Now.ToLongTimeString();
@@ -63,8 +67,10 @@ namespace Watch_Precision
             {
                Watch nw = new(brand, deviation.ToString(), position);
                 nw.InsertMeasurement();
-                PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
-                MessageBox.Show(deviation.ToString());
+
+                System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
+                FormatTimespan(list);
+                PrevMeasurementsDG.ItemsSource = list;
 
                 GetAvg();
             }
@@ -83,16 +89,7 @@ namespace Watch_Precision
             if (brand != null)
             {
                 System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
-                foreach (var item in list)
-                {
-                    TimeSpan timeSpan = TimeSpan.Parse(item.Deviation);
-                    if (timeSpan > TimeSpan.FromMilliseconds(0))
-                    {
-                        item.Deviation = timeSpan.ToString(@"mm\:ss\.ff");
-                    }
-                    else item.Deviation = '-' + timeSpan.ToString(@"mm\:ss\.ff");
-                }
-
+                FormatTimespan(list);
                 PrevMeasurementsDG.ItemsSource = list;
 
                 GetAvg();
@@ -104,7 +101,7 @@ namespace Watch_Precision
             position = lbPositions.SelectedItem.ToString();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void DeleteMI_Click(object sender, RoutedEventArgs e)
         {
             var item = PrevMeasurementsDG.SelectedItem;
 
@@ -113,7 +110,9 @@ namespace Watch_Precision
                 string date = (item as Data).Date.ToString();
                 _.DeleteMeasurement(date);
 
-                PrevMeasurementsDG.ItemsSource = _.ReadMeasurements(brand);
+                System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
+                FormatTimespan(list);
+                PrevMeasurementsDG.ItemsSource = list;
                 GetAvg();
             }
         }
@@ -138,5 +137,27 @@ namespace Watch_Precision
                 tbDeviation.Text = avgTime.ToString(@"mm\:ss\.ff"); }
             else tbDeviation.Text = '-'+avgTime.ToString(@"mm\:ss\.ff");
         }
+
+        private void FormatTimespan(System.Collections.Generic.List<Data> list)
+        {
+            foreach (var item in list)
+            {
+                TimeSpan timeSpan = TimeSpan.Parse(item.Deviation);
+                if (timeSpan > TimeSpan.FromMilliseconds(0))
+                {
+                    item.Deviation = timeSpan.ToString(@"mm\:ss\.ff");
+                }
+                else item.Deviation = '-' + timeSpan.ToString(@"mm\:ss\.ff");
+            }
+        }
+
+        private void DeleteKB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                DeleteMI_Click(sender, e);
+            }
+        }
+        */
     }
 }

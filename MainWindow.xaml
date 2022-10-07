@@ -19,8 +19,8 @@
             <WrapPanel>
                 <TextBlock Text="Watch time: "/>
                 <TextBlock Name="watchTime" Margin="5,0,0,0" FontWeight="Bold" />
-                <Button Name="timeUpButton" Margin="10,0,10,0" Content="↑" Background="Cornsilk" BorderThickness="0" Click="TimeUpButton_Click"/>
-                <Button Name="timeDownButton" Content="↓" Background="Cornsilk" BorderThickness="0" Click="TimeDownButton_Click"/>
+                <Button Name="timeUpButton" Margin="10,0,10,0" Content="↑" Background="Cornsilk" BorderThickness="0" />
+                <Button Name="timeDownButton" Content="↓" Background="Cornsilk" BorderThickness="0" />
             </WrapPanel>
             <WrapPanel Margin="0,-1,0,0">
                 <TextBlock Text="Avg Deviation: "/>
@@ -29,27 +29,29 @@
             <StackPanel Margin="0,20,0,0">
                 <DockPanel LastChildFill="False">
                     <TextBlock Text="Watch:" FontWeight="Bold"/>
-                    <Button Name="AddWatchButton" Background="Cornsilk" BorderThickness="0" DockPanel.Dock="Right" Click="AddWatchButton_Click">
+                    <Button Name="AddWatchButton" Background="Cornsilk" BorderThickness="0" DockPanel.Dock="Right" >
                         <Image Source="plus-512.png" Height="13"/>
                     </Button>
                 </DockPanel>
-                <ComboBox Name="cbWatches" SelectionChanged="cbWatches_SelectionChanged" Background="Cornsilk"/>
+                <ComboBox Name="cbWatches" Background="Cornsilk"/>
                 <TextBlock Margin="0,20,0,0" Text="Position:" FontWeight="Bold"/>
-                <ComboBox Name="lbPositions" SelectionChanged="lbPositions_SelectionChanged" />
+                <ComboBox Name="lbPositions" />
             </StackPanel>
-            <Button Width="auto" Margin="0,50,0,5" Content="Measure (seconds on :00)" BorderThickness="2" BorderBrush="SaddleBrown" Background="Cornsilk" Click="MeasureButton_Click"/>
+            <Border Margin="0,50,0,5" BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="4">
+                <Button Width="auto" Content="Measure (seconds on :00)" Background="Cornsilk" />
+            </Border>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="40,20,-20,0" VerticalAlignment="Top">
             <Border BorderBrush="SaddleBrown" BorderThickness="2" CornerRadius="4">
                 <DataGrid Name="PrevMeasurementsDG" Width="auto" MaxHeight="265" RowBackground="Cornsilk" Background="Cornsilk" IsReadOnly="True" AutoGenerateColumns="False" RenderTransformOrigin="1,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Date" Width="160" Binding="{Binding Date}" />
-                        <DataGridTextColumn Header="Deviation" Width="100" Binding="{Binding Deviation}" />
-                        <DataGridTextColumn Header="Position" Width="160" Binding="{Binding Position}"/>
+                        <DataGridTextColumn Header="Date" Width="160"  />
+                        <DataGridTextColumn Header="Deviation" Width="100"/>
+                        <DataGridTextColumn Header="Position" Width="160" />
                     </DataGrid.Columns>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Delete" Click="MenuItem_Click" />
+                            <MenuItem Header="Delete" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

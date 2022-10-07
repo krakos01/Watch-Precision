@@ -10,6 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Watch_Precision
 {
+    /*
     public class Data
     {
         public string Date { get; set; }
@@ -42,4 +43,5 @@ namespace Watch_Precision
         }
 
     }
+    */
 }

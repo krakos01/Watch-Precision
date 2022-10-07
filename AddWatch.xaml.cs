@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Watch_Precision.Models;
 
 namespace Watch_Precision
 {
@@ -19,7 +20,7 @@ namespace Watch_Precision
     /// </summary>
     public partial class AddWatch : Window
     {
-
+        /*
         Watch watch_none = new();
         string watchName;
 
@@ -56,5 +57,7 @@ namespace Watch_Precision
                 WatchesLV.ItemsSource = watch_none.ReadWatchesNames();
             }
         }
+        */
     }
+        
 }
