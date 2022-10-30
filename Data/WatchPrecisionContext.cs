@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Watch_Precision.Models;
 using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using System.Windows;
 
 namespace Watch_Precision.Data
 {
@@ -15,12 +17,15 @@ namespace Watch_Precision.Data
         public DbSet<Watch> Watches { get; set; } = null!;
         public DbSet<Measurement> Measurements { get; set; } = null!;
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // For some reason this doesn't work.
-            // optionsBuilder.UseSqlite(ConfigurationManager.ConnectionStrings["WatchDBConnection"].ConnectionString);
+            //var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+            //optionsBuilder.UseSqlite(connectionString);
+            //optionsBuilder.UseSqlite(Configuration.GetConnectionString("Default"));
 
-             optionsBuilder.UseSqlite("Data Source=.\\watch.db;");
+            optionsBuilder.UseSqlite("Data Source=.\\watch.db;");
         }
     }
 }

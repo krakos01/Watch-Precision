@@ -11,6 +11,8 @@ using Watch_Precision.Models;
 using Watch_Precision.Data;
 using Microsoft.Extensions.Options;
 using System.Configuration;
+using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace Watch_Precision
 {
@@ -24,6 +26,7 @@ namespace Watch_Precision
         public MainWindow()
         {
             InitializeComponent();
+
             /*Database dbObject = new Database();
 
             ShowPositions();
@@ -36,7 +39,12 @@ namespace Watch_Precision
 
             watchTime.Text = DateTime.Now.ToShortTimeString();
             */
+
+            
         }
+
+
+    }
 
         /*
         void Timer_Tick(object? sender, EventArgs e)
@@ -160,4 +168,3 @@ namespace Watch_Precision
         }
         */
     }
-}

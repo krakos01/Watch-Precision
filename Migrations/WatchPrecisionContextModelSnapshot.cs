@@ -40,7 +40,7 @@ namespace Watch_Precision.Migrations
 
                     b.HasIndex("WatchId");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurements", (string)null);
                 });
 
             modelBuilder.Entity("Watch_Precision.Models.Watch", b =>
@@ -58,7 +58,7 @@ namespace Watch_Precision.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Watches");
+                    b.ToTable("Watches", (string)null);
                 });
 
             modelBuilder.Entity("Watch_Precision.Models.Measurement", b =>
