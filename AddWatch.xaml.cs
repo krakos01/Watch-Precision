@@ -12,38 +12,49 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Watch_Precision.Models;
+using Watch_Precision.Data;
 
 namespace Watch_Precision
 {
     /// <summary>
     /// Logika interakcji dla klasy AddWatch.xaml
     /// </summary>
+
+
     public partial class AddWatch : Window
     {
-        /*
-        Watch watch_none = new();
-        string watchName;
+        List<Watch> watches = new();
 
         public AddWatch()
         {
             InitializeComponent();
 
-            WatchesLV.ItemsSource = watch_none.ReadWatchesNames();
+            LoadWatchesList();
+        }
+
+        private void LoadWatchesList()
+        {
+            watches = SqliteDataAccess.LoadWatches();
+
+            WatchesLV.ItemsSource = null;
+            WatchesLV.ItemsSource = watches.Select(x => x.Name).ToList();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            watchName = WatchTB.Text;
+            Watch watch = new();
+            watch.Name = WatchTB.Text;
 
             // Adds with space, so must check with added space
-            if (!WatchesLV.Items.Contains(watchName+' '))
+            if (!WatchesLV.Items.Contains(watch.Name+' '))
             {
-                watch_none.InsertWatch(watchName);
-                WatchesLV.ItemsSource = watch_none.ReadWatchesNames();
+                SqliteDataAccess.SaveWatch(watch);
+                LoadWatchesList();
             }
             else MessageBox.Show("Names cannot be repeated");
         }
 
+        /*
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             if (WatchesLV.SelectedItem != null)
@@ -58,6 +69,7 @@ namespace Watch_Precision
             }
         }
         */
+
     }
         
 }

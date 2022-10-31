@@ -7,11 +7,9 @@ namespace Watch_Precision.Models
     public class Watch
     {
         public int ID { get; set; }
-
-        [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; } = null!;
         public string? AdditionalInformation { get; set; }
-        public ICollection<Measurement> Measurements { get; set; } = null!;
+       // public ICollection<Measurement> Measurements { get; set; } = null!;
 
 
 

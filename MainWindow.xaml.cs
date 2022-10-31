@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using System.Configuration;
 using System.Data.SQLite;
 using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
 
 namespace Watch_Precision
 {
@@ -21,7 +22,7 @@ namespace Watch_Precision
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly Watch _ = new();
+        List<Watch> watches = new();
 
         public MainWindow()
         {
@@ -40,11 +41,19 @@ namespace Watch_Precision
             watchTime.Text = DateTime.Now.ToShortTimeString();
             */
 
-            
+            LoadWatchesList();
+        }
+
+        private void LoadWatchesList()
+        {
+            watches = SqliteDataAccess.LoadWatches();
+
+
+            cbWatches.ItemsSource = null;
+            cbWatches.ItemsSource = watches.Select(x => x.Name).ToList();
         }
 
 
-    }
 
         /*
         void Timer_Tick(object? sender, EventArgs e)
@@ -83,88 +92,89 @@ namespace Watch_Precision
                 GetAvg();
             }
         }
-
+        */
         private void AddWatchButton_Click(object sender, RoutedEventArgs e)
         {
             AddWatch addWatchWindow = new();
             addWatchWindow.Show();
         }
-
-        private void cbWatches_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            brand = cbWatches.SelectedItem.ToString();
-
-            if (brand != null)
+        /*
+            private void cbWatches_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
             {
-                System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
-                FormatTimespan(list);
-                PrevMeasurementsDG.ItemsSource = list;
+                brand = cbWatches.SelectedItem.ToString();
 
-                GetAvg();
-            }
-        }
-
-        private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            position = lbPositions.SelectedItem.ToString();
-        }
-
-        private void DeleteMI_Click(object sender, RoutedEventArgs e)
-        {
-            var item = PrevMeasurementsDG.SelectedItem;
-
-            if (item != null)
-            {
-                string date = (item as Data).Date.ToString();
-                _.DeleteMeasurement(date);
-
-                System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
-                FormatTimespan(list);
-                PrevMeasurementsDG.ItemsSource = list;
-                GetAvg();
-            }
-        }
-
-        private void GetAvg()
-        {
-            var item = _.ReadMeasurements(brand);
-        
-            var deviationsList = item
-                .Select(x => x.Deviation)
-                .ToList();
-
-            var average = deviationsList
-                .Select(TimeSpan.Parse)
-                .Average(x => x.TotalMilliseconds);
-
-
-            // Next lines formats avgTime
-            var avgTime = TimeSpan.FromMilliseconds(average);
-
-            if (avgTime > TimeSpan.FromMilliseconds(0)) {
-                tbDeviation.Text = avgTime.ToString(@"mm\:ss\.ff"); }
-            else tbDeviation.Text = '-'+avgTime.ToString(@"mm\:ss\.ff");
-        }
-
-        private void FormatTimespan(System.Collections.Generic.List<Data> list)
-        {
-            foreach (var item in list)
-            {
-                TimeSpan timeSpan = TimeSpan.Parse(item.Deviation);
-                if (timeSpan > TimeSpan.FromMilliseconds(0))
+                if (brand != null)
                 {
-                    item.Deviation = timeSpan.ToString(@"mm\:ss\.ff");
-                }
-                else item.Deviation = '-' + timeSpan.ToString(@"mm\:ss\.ff");
-            }
-        }
+                    System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
+                    FormatTimespan(list);
+                    PrevMeasurementsDG.ItemsSource = list;
 
-        private void DeleteKB_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Delete)
-            {
-                DeleteMI_Click(sender, e);
+                    GetAvg();
+                }
             }
-        }
-        */
+
+            private void lbPositions_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+            {
+                position = lbPositions.SelectedItem.ToString();
+            }
+
+            private void DeleteMI_Click(object sender, RoutedEventArgs e)
+            {
+                var item = PrevMeasurementsDG.SelectedItem;
+
+                if (item != null)
+                {
+                    string date = (item as Data).Date.ToString();
+                    _.DeleteMeasurement(date);
+
+                    System.Collections.Generic.List<Data> list = _.ReadMeasurements(brand);
+                    FormatTimespan(list);
+                    PrevMeasurementsDG.ItemsSource = list;
+                    GetAvg();
+                }
+            }
+
+            private void GetAvg()
+            {
+                var item = _.ReadMeasurements(brand);
+
+                var deviationsList = item
+                    .Select(x => x.Deviation)
+                    .ToList();
+
+                var average = deviationsList
+                    .Select(TimeSpan.Parse)
+                    .Average(x => x.TotalMilliseconds);
+
+
+                // Next lines formats avgTime
+                var avgTime = TimeSpan.FromMilliseconds(average);
+
+                if (avgTime > TimeSpan.FromMilliseconds(0)) {
+                    tbDeviation.Text = avgTime.ToString(@"mm\:ss\.ff"); }
+                else tbDeviation.Text = '-'+avgTime.ToString(@"mm\:ss\.ff");
+            }
+
+            private void FormatTimespan(System.Collections.Generic.List<Data> list)
+            {
+                foreach (var item in list)
+                {
+                    TimeSpan timeSpan = TimeSpan.Parse(item.Deviation);
+                    if (timeSpan > TimeSpan.FromMilliseconds(0))
+                    {
+                        item.Deviation = timeSpan.ToString(@"mm\:ss\.ff");
+                    }
+                    else item.Deviation = '-' + timeSpan.ToString(@"mm\:ss\.ff");
+                }
+            }
+
+            private void DeleteKB_KeyDown(object sender, KeyEventArgs e)
+            {
+                if (e.Key == Key.Delete)
+                {
+                    DeleteMI_Click(sender, e);
+                }
+            }
+            */
     }
+}

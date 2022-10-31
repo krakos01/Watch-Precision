@@ -27,5 +27,6 @@ namespace Watch_Precision.Data
 
             optionsBuilder.UseSqlite("Data Source=.\\watch.db;");
         }
+
     }
 }
