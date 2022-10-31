@@ -1,1 +1,1 @@
-Watch Precision
+Watch Precision (Dapper, not EF)
